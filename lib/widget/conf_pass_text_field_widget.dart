@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class PasswordTextFieldWidget extends StatelessWidget {
+class ConfPassTextFieldWidget extends StatelessWidget {
   final String hintText;
   final Icon prefixIcon;
   final TextInputType textInputType;
   final TextInputAction textInputAction;
   final bool obscure;
-  static bool passObscureStatus = true;
+  static bool confPassObscureStatus = true;
   final IconButton iconButton;
 
 
-  const PasswordTextFieldWidget(
+  const ConfPassTextFieldWidget(
       {super.key,
       required this.hintText,
       required this.prefixIcon,
@@ -25,7 +25,7 @@ class PasswordTextFieldWidget extends StatelessWidget {
     return TextField(
         keyboardType: textInputType,
         textInputAction: textInputAction,
-        obscureText: PasswordTextFieldWidget.passObscureStatus,
+        obscureText: ConfPassTextFieldWidget.confPassObscureStatus,
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: prefixIcon,

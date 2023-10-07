@@ -5,6 +5,7 @@ import 'package:coinvalue/widget/google_button_widget.dart';
 import 'package:coinvalue/widget/email_text_field_widget.dart';
 import 'package:coinvalue/widget/password_text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,7 +46,7 @@ class LoginPageState extends State<LoginPage> {
               gap50,
               loginButtonWidget(),
               gap10,
-              forgotPasswordWidget(),
+              needHelpWidget(),
               gap20,
               dividerWidget(),
               gap20,
@@ -85,19 +86,19 @@ class LoginPageState extends State<LoginPage> {
       prefixIcon: const Icon(Icons.key),
       textInputType: TextInputType.text,
       textInputAction: TextInputAction.done,
-      obscure: PasswordTextFieldWidget.obscureStatus,
-      iconButton: PasswordTextFieldWidget.obscureStatus ?
+      obscure: PasswordTextFieldWidget.passObscureStatus,
+      iconButton: PasswordTextFieldWidget.passObscureStatus ?
         IconButton(
           onPressed: (){
             setState(() {
-                  PasswordTextFieldWidget.obscureStatus = !PasswordTextFieldWidget.obscureStatus;
+                  PasswordTextFieldWidget.passObscureStatus = !PasswordTextFieldWidget.passObscureStatus;
                 });
           },
           icon: const Icon(Icons.visibility_off_outlined)
         ) : IconButton(
               onPressed: (){
                 setState(() {
-                  PasswordTextFieldWidget.obscureStatus = !PasswordTextFieldWidget.obscureStatus;
+                  PasswordTextFieldWidget.passObscureStatus = !PasswordTextFieldWidget.passObscureStatus;
                 }); 
               },
               icon: const Icon(Icons.visibility_outlined)),
@@ -105,11 +106,13 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget forgotPasswordWidget(){
+  Widget needHelpWidget(){
     return TextButton(
-      onPressed: (){},
+      onPressed: (){
+        Get.toNamed("/resetPassword");
+      },
       child: const Text(
-        "Forgot password ?",
+        "Need help ?",
         style: TextStyle(fontWeight: FontWeight.bold),
         ),
     );
@@ -129,7 +132,7 @@ class LoginPageState extends State<LoginPage> {
   Widget googleButtonWidget(){
     return GoogleButtonWidget(
       onPressed: (){},
-      text: "Sign in with google"
+      text: "Continue with google"
       );
   }
 }

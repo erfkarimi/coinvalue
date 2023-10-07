@@ -13,9 +13,8 @@ class App extends GetMaterialApp{
       textTheme: GoogleFonts.latoTextTheme(),
       primarySwatch: Palette.iris
     ),
-    
+    defaultTransition: Transition.leftToRight,
+    routes: routes,
     initialRoute: "/splashScreen",
-    defaultTransition: Transition.rightToLeft,
-    routes: routes
   );
 }

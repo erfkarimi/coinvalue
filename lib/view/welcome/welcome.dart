@@ -59,7 +59,7 @@ class WelcomePage extends StatelessWidget{
   Widget registerButtonWidget(){
     return MaterialButton(
       onPressed: (){
-        Get.toNamed("register");
+        Get.toNamed("/register");
       },
       minWidth: double.infinity,
       height: 48,
