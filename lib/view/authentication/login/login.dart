@@ -1,7 +1,10 @@
+import 'package:coinvalue/constant/constant.dart';
 import 'package:coinvalue/widget/big_button_widget.dart';
-import 'package:coinvalue/widget/text_field_widget.dart';
+import 'package:coinvalue/widget/divider_widget.dart';
+import 'package:coinvalue/widget/google_button_widget.dart';
+import 'package:coinvalue/widget/email_text_field_widget.dart';
+import 'package:coinvalue/widget/password_text_field_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -28,23 +31,30 @@ class LoginPageState extends State<LoginPage> {
 
   Widget buildBody() {
     return SizedBox.expand(
-      child: Column(
-        children: [
-          const SizedBox(height: 40),
-          signInTextWidget(),
-          const SizedBox(height: 30),
-          emailTextField(),
-          const SizedBox(height: 20),
-          passwordTextField(),
-          const SizedBox(height: 50),
-          loginButtonWidget(),
-          const SizedBox(height: 40),
-          dividerWidget(),
-          const SizedBox(height: 20),
-          googleButtonWidget()
-        ],
+      child: Padding(
+        padding: p24,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              gap40,
+              signInTextWidget(),
+              gap20,
+              emailTextFieldWidget(),
+              gap20,
+              passwordTextFieldWidget(),
+              gap50,
+              loginButtonWidget(),
+              gap10,
+              forgotPasswordWidget(),
+              gap20,
+              dividerWidget(),
+              gap20,
+              googleButtonWidget()
+            ],
+          ),
+        ),
       ),
-    ).paddingAll(24);
+    );
   }
 
   Widget signInTextWidget(){
@@ -60,17 +70,48 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget emailTextField(){
-    return TextFieldWidget(
+  Widget emailTextFieldWidget(){
+    return const EmailTextFieldWidget(
       hintText: "Email",
-      prefixIcon: const Icon(Icons.email)
+      prefixIcon: Icon(Icons.email),
+      textInputType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
       );
   }
 
-  Widget passwordTextField(){
-    return TextFieldWidget(
+  Widget passwordTextFieldWidget(){
+    return PasswordTextFieldWidget(
       hintText: "Password",
-      prefixIcon: const Icon(Icons.key)
+      prefixIcon: const Icon(Icons.key),
+      textInputType: TextInputType.text,
+      textInputAction: TextInputAction.done,
+      obscure: PasswordTextFieldWidget.obscureStatus,
+      iconButton: PasswordTextFieldWidget.obscureStatus ?
+        IconButton(
+          onPressed: (){
+            setState(() {
+                  PasswordTextFieldWidget.obscureStatus = !PasswordTextFieldWidget.obscureStatus;
+                });
+          },
+          icon: const Icon(Icons.visibility_off_outlined)
+        ) : IconButton(
+              onPressed: (){
+                setState(() {
+                  PasswordTextFieldWidget.obscureStatus = !PasswordTextFieldWidget.obscureStatus;
+                }); 
+              },
+              icon: const Icon(Icons.visibility_outlined)),
+
+    );
+  }
+
+  Widget forgotPasswordWidget(){
+    return TextButton(
+      onPressed: (){},
+      child: const Text(
+        "Forgot password ?",
+        style: TextStyle(fontWeight: FontWeight.bold),
+        ),
     );
   }
 
@@ -82,61 +123,13 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Widget dividerWidget(){
-    return const Row(
-      children: [
-        Expanded(
-          child: Divider(
-            indent: 40,
-            endIndent: 10,
-          ),
-        ),
-        Text(
-          "or",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 17
-          )),
-        Expanded(
-          child: Divider(
-            indent: 10,
-            endIndent: 40,
-          ),
-        )
-      ],
-    );
+    return const DividerWidget();
   }
 
   Widget googleButtonWidget(){
-    return MaterialButton(
+    return GoogleButtonWidget(
       onPressed: (){},
-      height: 48,
-      minWidth: double.infinity,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: const BorderSide(
-          width: 2.0
-        )
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset("asset/image/google_icon.png",
-            width: 24,),
-          const SizedBox(width: 10),
-          Container(
-            width: 2.0,
-            height: 20,
-            color: Colors.black,
-          ),
-          const SizedBox(width: 10),
-          const Text(
-            "Sign in with google",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold
-            ),)
-        ],
-      )
-    );
+      text: "Sign in with google"
+      );
   }
 }
