@@ -1,7 +1,9 @@
 import 'package:coinvalue/constant/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../view_model/text_field_validation/text_field_validation.dart';
 import '../../../../widget/big_button_widget.dart';
 import '../../../../widget/email_text_field_widget.dart';
 
@@ -13,7 +15,7 @@ class ResetPassword extends StatelessWidget{
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: buildAppBar(),
-      body: buildBody()
+      body: buildBody(context)
     );
   }
 
@@ -21,15 +23,15 @@ class ResetPassword extends StatelessWidget{
     return AppBar();
   }
 
-  Widget buildBody(){
+  Widget buildBody(context){
     return Column(
       children: [
         gap40,
         resetPasswordTextWidget(),
         gap20,
-        emailTextFieldWidget(),
+        emailTextFieldWidget(context),
         gap50,
-        submitButtonWidget()
+        submitButtonWidget(context)
 
       ],
     ).paddingAll(24);
@@ -48,19 +50,23 @@ class ResetPassword extends StatelessWidget{
     );
   }
 
-  Widget emailTextFieldWidget(){
-    return const EmailTextFieldWidget(
+  Widget emailTextFieldWidget(context){
+    final validationService = Provider.of<TextFieldValidation>(context);
+    return EmailTextFieldWidget(
       hintText: "Email",
-      prefixIcon: Icon(Icons.email),
+      prefixIcon: const Icon(Icons.email),
       textInputType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
+      errorText: validationService.email.error,
+      onChange: (String value)=> validationService.changeEmail(value),
       );
   }
 
-  Widget submitButtonWidget(){
+  Widget submitButtonWidget(context){
+    final validationService = Provider.of<TextFieldValidation>(context);
     return BigButton(
       title: "Submit",
-      onPressed: (){}
+      onPressed: (!validationService.isValidForResetPassword) ? null : (){}
       );
   }
 

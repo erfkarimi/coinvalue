@@ -8,6 +8,8 @@ class ConfPassTextFieldWidget extends StatelessWidget {
   final bool obscure;
   static bool confPassObscureStatus = true;
   final IconButton iconButton;
+  final String? errorText;
+  final Function(String) onChanged;
 
 
   const ConfPassTextFieldWidget(
@@ -17,7 +19,9 @@ class ConfPassTextFieldWidget extends StatelessWidget {
       required this.textInputType,
       required this.textInputAction,
       required this.obscure,
-      required this.iconButton
+      required this.iconButton,
+      this.errorText,
+      required this.onChanged
       });
 
   @override
@@ -29,7 +33,10 @@ class ConfPassTextFieldWidget extends StatelessWidget {
         decoration: InputDecoration(
           hintText: hintText,
           prefixIcon: prefixIcon,
-          suffixIcon: iconButton
-        ));
+          suffixIcon: iconButton,
+          errorText: errorText 
+          ),
+          onChanged: onChanged,
+      );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:coinvalue/model/palette.dart';
+import 'package:coinvalue/model/color/palette.dart';
 import 'package:coinvalue/widget/big_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

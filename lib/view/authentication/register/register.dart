@@ -1,7 +1,9 @@
 import 'package:coinvalue/constant/constant.dart';
 import 'package:coinvalue/widget/conf_pass_text_field_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../view_model/text_field_validation/text_field_validation.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/divider_widget.dart';
 import '../../../widget/email_text_field_widget.dart';
@@ -73,21 +75,27 @@ class RegisterPageState extends State<RegisterPage>{
   }
 
     Widget emailTextFieldWidget(){
-    return const EmailTextFieldWidget(
+    final validationService = Provider.of<TextFieldValidation>(context);
+    return EmailTextFieldWidget(
       hintText: "Email",
-      prefixIcon: Icon(Icons.email),
+      prefixIcon: const Icon(Icons.email),
       textInputType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
+      errorText: validationService.email.error,
+      onChange: (String value)=> validationService.changeEmail(value),
       );
   }
 
   Widget passwordTextFieldWidget(){
+    final validationService = Provider.of<TextFieldValidation>(context);
     return PasswordTextFieldWidget(
       hintText: "Password",
       prefixIcon: const Icon(Icons.key),
       textInputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       obscure: PasswordTextFieldWidget.passObscureStatus,
+      errorText: validationService.password.error,
+      onChanged: (String value)=> validationService.changePassword(value),
       iconButton: PasswordTextFieldWidget.passObscureStatus ?
         IconButton(
           onPressed: (){
@@ -108,12 +116,15 @@ class RegisterPageState extends State<RegisterPage>{
   }
 
   Widget confPassTextFieldWidget(){
+    final validationService = Provider.of<TextFieldValidation>(context);
     return ConfPassTextFieldWidget(
       hintText: "Confirm password",
       prefixIcon: const Icon(Icons.lock),
       textInputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       obscure: ConfPassTextFieldWidget.confPassObscureStatus,
+      errorText: validationService.confirmPassword.error,
+      onChanged: (String value)=> validationService.changeConfPass(value),
       iconButton: ConfPassTextFieldWidget.confPassObscureStatus ?
         IconButton(
           onPressed: (){
@@ -134,13 +145,14 @@ class RegisterPageState extends State<RegisterPage>{
   }
 
   Widget signUpButtonWidget(){
+    final validationService = Provider.of<TextFieldValidation>(context);
     return BigButton(
       title: "Sign up",
-      onPressed: (){}
+      onPressed: (!validationService.isValidForRegister) ? null : (){}
       );
   }
 
-   Widget dividerWidget(){
+  Widget dividerWidget(){
     return const DividerWidget();
   }
 

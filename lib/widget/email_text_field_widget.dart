@@ -5,6 +5,8 @@ class EmailTextFieldWidget extends StatelessWidget {
   final Icon prefixIcon;
   final TextInputType textInputType;
   final TextInputAction textInputAction;
+  final String? errorText;
+  final Function(String) onChange;
 
 
   const EmailTextFieldWidget(
@@ -13,16 +15,21 @@ class EmailTextFieldWidget extends StatelessWidget {
       required this.prefixIcon,
       required this.textInputType,
       required this.textInputAction,
+      this.errorText,
+      required this.onChange
       });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-        keyboardType: textInputType,
-        textInputAction: textInputAction,
-        decoration: InputDecoration(
-          hintText: hintText,
-          prefixIcon: prefixIcon,
-        ));
+              keyboardType: textInputType,
+              textInputAction: textInputAction,
+                decoration: InputDecoration(
+                      hintText: hintText,
+                      prefixIcon: prefixIcon,
+                      errorText: errorText,
+                    ),
+                    onChanged: onChange,
+        );
   }
 }

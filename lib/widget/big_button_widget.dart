@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../model/palette.dart';
+import '../model/color/palette.dart';
 
 class BigButton extends StatelessWidget{
   final String title;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const BigButton({
     super.key,
     required this.title,
@@ -17,6 +17,7 @@ class BigButton extends StatelessWidget{
       minWidth: double.infinity,
       height: 50,
       color: Palette.iris,
+      disabledColor: Colors.grey.shade300,
       elevation: 0.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20)
