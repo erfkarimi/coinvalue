@@ -87,6 +87,7 @@ class LoginPageState extends State<LoginPage> {
 
   Widget passwordTextFieldWidget(){
     final validationService = Provider.of<TextFieldValidation>(context);
+    final TextEditingController controller = TextEditingController();
     return PasswordTextFieldWidget(
       hintText: "Password",
       prefixIcon: const Icon(Icons.key),
@@ -94,6 +95,7 @@ class LoginPageState extends State<LoginPage> {
       textInputAction: TextInputAction.done,
       obscure: PasswordTextFieldWidget.passObscureStatus,
       errorText: validationService.password.error,
+      controller: controller,
       onChanged: (String value)=> validationService.changePassword(value),
       iconButton: PasswordTextFieldWidget.passObscureStatus ?
         IconButton(

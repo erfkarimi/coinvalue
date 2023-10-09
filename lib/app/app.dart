@@ -11,9 +11,13 @@ class App extends GetMaterialApp{
       colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       useMaterial3: true,
       textTheme: GoogleFonts.latoTextTheme(),
-      primarySwatch: Palette.iris
+      primarySwatch: Palette.iris,
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android : CupertinoPageTransitionsBuilder()
+        }
+      )
     ),
-    defaultTransition: Transition.leftToRight,
     routes: routes,
     initialRoute: "/splashScreen",
   );

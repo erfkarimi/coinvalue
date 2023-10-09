@@ -10,6 +10,7 @@ class PasswordTextFieldWidget extends StatelessWidget {
   final IconButton iconButton;
   final String? errorText;
   final Function(String) onChanged;
+  final TextEditingController controller;
 
 
   const PasswordTextFieldWidget(
@@ -21,13 +22,15 @@ class PasswordTextFieldWidget extends StatelessWidget {
       required this.obscure,
       required this.iconButton,
       this.errorText,
-      required this.onChanged
+      required this.onChanged,
+      required this.controller
       });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
             keyboardType: textInputType,
+            controller: controller,
             textInputAction: textInputAction,
             obscureText: PasswordTextFieldWidget.passObscureStatus,
             decoration: InputDecoration(

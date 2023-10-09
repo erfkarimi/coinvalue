@@ -10,6 +10,8 @@ class ConfPassTextFieldWidget extends StatelessWidget {
   final IconButton iconButton;
   final String? errorText;
   final Function(String) onChanged;
+  static bool enabled = false;
+  final TextEditingController controller;
 
 
   const ConfPassTextFieldWidget(
@@ -21,7 +23,8 @@ class ConfPassTextFieldWidget extends StatelessWidget {
       required this.obscure,
       required this.iconButton,
       this.errorText,
-      required this.onChanged
+      required this.onChanged,
+      required this.controller
       });
 
   @override
@@ -29,9 +32,11 @@ class ConfPassTextFieldWidget extends StatelessWidget {
     return TextField(
         keyboardType: textInputType,
         textInputAction: textInputAction,
+        controller: controller,
         obscureText: ConfPassTextFieldWidget.confPassObscureStatus,
         decoration: InputDecoration(
           hintText: hintText,
+          enabled: ConfPassTextFieldWidget.enabled,
           prefixIcon: prefixIcon,
           suffixIcon: iconButton,
           errorText: errorText 

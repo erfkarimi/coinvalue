@@ -1,6 +1,6 @@
 class TextFieldModel{
-  final String? value;
-  final String? error;
+  String? value;
+  String? error;
 
   TextFieldModel(this.value, this.error);
 }

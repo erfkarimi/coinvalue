@@ -1,4 +1,5 @@
 import 'package:coinvalue/model/validation/text_field_model.dart';
+import 'package:coinvalue/widget/conf_pass_text_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class TextFieldValidation with ChangeNotifier{
@@ -56,18 +57,36 @@ class TextFieldValidation with ChangeNotifier{
   void changePassword(String value){
     if(value.length >= 8){
       _password = TextFieldModel(value, null);
+      
     } else {
         _password = TextFieldModel(null, "Password must be at least 8 characters");
     }
     notifyListeners();
   }
 
-  void changeConfPass(String value){
-    if(value == _password.value){
+  void changeConfPass(String value, String value2){
+    if(value == value2){
       _confirmPassword = TextFieldModel(value, null);
     } else {
         _confirmPassword = TextFieldModel(null, "Dose not match");
     }
     notifyListeners();
+  }
+
+  void confirmPasswordActivation(String value){
+    if(value.length >= 8){
+      ConfPassTextFieldWidget.enabled = true;
+    } else {
+      ConfPassTextFieldWidget.enabled = false;
+    }
+    notifyListeners();
+  }
+
+  void passwordValidation(String value, String value2){
+    if(value == value2){
+      _password = TextFieldModel(value, null);
+    } else {
+      _password = TextFieldModel(null, "Dose not match");
+    }
   }
 }

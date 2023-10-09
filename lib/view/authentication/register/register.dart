@@ -18,6 +18,9 @@ class RegisterPage extends StatefulWidget{
 }
 
 class RegisterPageState extends State<RegisterPage>{
+  final TextEditingController passController = TextEditingController();
+  final TextEditingController confPassController = TextEditingController();
+
   @override 
   Widget build(context){
     return Scaffold(
@@ -88,14 +91,20 @@ class RegisterPageState extends State<RegisterPage>{
 
   Widget passwordTextFieldWidget(){
     final validationService = Provider.of<TextFieldValidation>(context);
+    
     return PasswordTextFieldWidget(
       hintText: "Password",
       prefixIcon: const Icon(Icons.key),
       textInputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       obscure: PasswordTextFieldWidget.passObscureStatus,
+      controller: passController,
       errorText: validationService.password.error,
-      onChanged: (String value)=> validationService.changePassword(value),
+      onChanged: (String value){
+        validationService.changePassword(value);
+        validationService.confirmPasswordActivation(value);
+        validationService.changeConfPass(value, confPassController.text);
+      },
       iconButton: PasswordTextFieldWidget.passObscureStatus ?
         IconButton(
           onPressed: (){
@@ -124,7 +133,10 @@ class RegisterPageState extends State<RegisterPage>{
       textInputAction: TextInputAction.done,
       obscure: ConfPassTextFieldWidget.confPassObscureStatus,
       errorText: validationService.confirmPassword.error,
-      onChanged: (String value)=> validationService.changeConfPass(value),
+      controller: confPassController,
+      onChanged: (String value){
+        validationService.changeConfPass(value, passController.text);
+      },
       iconButton: ConfPassTextFieldWidget.confPassObscureStatus ?
         IconButton(
           onPressed: (){
