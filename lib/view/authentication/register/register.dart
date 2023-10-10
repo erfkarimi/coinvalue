@@ -102,8 +102,8 @@ class RegisterPageState extends State<RegisterPage>{
       errorText: validationService.password.error,
       onChanged: (String value){
         validationService.changePassword(value);
-        validationService.confirmPasswordActivation(value);
-        validationService.changeConfPass(value, confPassController.text);
+        //validationService.equation();
+        validationService.changeConfPass(confPassController.text);
       },
       iconButton: PasswordTextFieldWidget.passObscureStatus ?
         IconButton(
@@ -135,7 +135,7 @@ class RegisterPageState extends State<RegisterPage>{
       errorText: validationService.confirmPassword.error,
       controller: confPassController,
       onChanged: (String value){
-        validationService.changeConfPass(value, passController.text);
+        validationService.changeConfPass(value);
       },
       iconButton: ConfPassTextFieldWidget.confPassObscureStatus ?
         IconButton(
