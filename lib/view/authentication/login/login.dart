@@ -1,5 +1,5 @@
 import 'package:coinvalue/constant/constant.dart';
-import 'package:coinvalue/view_model/text_field_validation/text_field_validation.dart';
+import 'package:coinvalue/view_model/login_validation/text_field_validation.dart';
 import 'package:coinvalue/widget/big_button_widget.dart';
 import 'package:coinvalue/widget/divider_widget.dart';
 import 'package:coinvalue/widget/google_button_widget.dart';
@@ -17,6 +17,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(context) {
     return Scaffold(
@@ -74,20 +75,19 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Widget emailTextFieldWidget(){
-    final validationService = Provider.of<TextFieldValidation>(context);
+    final validationService = Provider.of<LoginTextFieldValidation>(context);
     return EmailTextFieldWidget(
       hintText: "Email",
       prefixIcon: const Icon(Icons.email),
       textInputType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       errorText: validationService.email.error,
-      onChange: (String value)=> validationService.changeEmail(value),
+      onChange: (String value)=> validationService.loginChangeEmail(value),
       );
   }
 
   Widget passwordTextFieldWidget(){
-    final validationService = Provider.of<TextFieldValidation>(context);
-    final TextEditingController controller = TextEditingController();
+    final validationService = Provider.of<LoginTextFieldValidation>(context);
     return PasswordTextFieldWidget(
       hintText: "Password",
       prefixIcon: const Icon(Icons.key),
@@ -96,7 +96,7 @@ class LoginPageState extends State<LoginPage> {
       obscure: PasswordTextFieldWidget.passObscureStatus,
       errorText: validationService.password.error,
       controller: controller,
-      onChanged: (String value)=> validationService.changePassword(value),
+      onChanged: (String value)=> validationService.loginChangePassword(value),
       iconButton: PasswordTextFieldWidget.passObscureStatus ?
         IconButton(
           onPressed: (){
@@ -129,10 +129,10 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Widget loginButtonWidget(){
-    final validationService = Provider.of<TextFieldValidation>(context);
+    final validationService = Provider.of<LoginTextFieldValidation>(context);
     return BigButton(
       title: "Login",
-      onPressed: (!validationService.isValidForLogin) ? null : (){}
+      onPressed: (!validationService.loginIsValid) ? null : (){}
       );
   }
 

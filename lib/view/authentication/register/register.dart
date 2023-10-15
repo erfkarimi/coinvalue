@@ -1,9 +1,8 @@
 import 'package:coinvalue/constant/constant.dart';
+import 'package:coinvalue/view_model/register_validation/text_field_validation.dart';
 import 'package:coinvalue/widget/conf_pass_text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../view_model/text_field_validation/text_field_validation.dart';
 import '../../../widget/big_button_widget.dart';
 import '../../../widget/divider_widget.dart';
 import '../../../widget/email_text_field_widget.dart';
@@ -18,7 +17,6 @@ class RegisterPage extends StatefulWidget{
 }
 
 class RegisterPageState extends State<RegisterPage>{
-  final TextEditingController passController = TextEditingController();
   final TextEditingController confPassController = TextEditingController();
 
   @override 
@@ -78,32 +76,29 @@ class RegisterPageState extends State<RegisterPage>{
   }
 
     Widget emailTextFieldWidget(){
-    final validationService = Provider.of<TextFieldValidation>(context);
+    final validationService = Provider.of<RegisterTextFieldValidation>(context);
     return EmailTextFieldWidget(
       hintText: "Email",
       prefixIcon: const Icon(Icons.email),
       textInputType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
       errorText: validationService.email.error,
-      onChange: (String value)=> validationService.changeEmail(value),
+      onChange: (String value)=> validationService.registerChangeEmail(value),
       );
   }
 
   Widget passwordTextFieldWidget(){
-    final validationService = Provider.of<TextFieldValidation>(context);
-    
+    final validationService = Provider.of<RegisterTextFieldValidation>(context);
     return PasswordTextFieldWidget(
       hintText: "Password",
       prefixIcon: const Icon(Icons.key),
       textInputType: TextInputType.text,
       textInputAction: TextInputAction.done,
       obscure: PasswordTextFieldWidget.passObscureStatus,
-      controller: passController,
       errorText: validationService.password.error,
       onChanged: (String value){
-        validationService.changePassword(value);
-        //validationService.equation();
-        validationService.changeConfPass(confPassController.text);
+        validationService.registerChangePassword(value);
+        validationService.registerChangeConfPass(confPassController.text);
       },
       iconButton: PasswordTextFieldWidget.passObscureStatus ?
         IconButton(
@@ -125,7 +120,7 @@ class RegisterPageState extends State<RegisterPage>{
   }
 
   Widget confPassTextFieldWidget(){
-    final validationService = Provider.of<TextFieldValidation>(context);
+    final validationService = Provider.of<RegisterTextFieldValidation>(context);
     return ConfPassTextFieldWidget(
       hintText: "Confirm password",
       prefixIcon: const Icon(Icons.lock),
@@ -135,7 +130,7 @@ class RegisterPageState extends State<RegisterPage>{
       errorText: validationService.confirmPassword.error,
       controller: confPassController,
       onChanged: (String value){
-        validationService.changeConfPass(value);
+        validationService.registerChangeConfPass(value);
       },
       iconButton: ConfPassTextFieldWidget.confPassObscureStatus ?
         IconButton(
@@ -157,10 +152,10 @@ class RegisterPageState extends State<RegisterPage>{
   }
 
   Widget signUpButtonWidget(){
-    final validationService = Provider.of<TextFieldValidation>(context);
+    final validationService = Provider.of<RegisterTextFieldValidation>(context);
     return BigButton(
       title: "Sign up",
-      onPressed: (!validationService.isValidForRegister) ? null : (){}
+      onPressed: (!validationService.registerIsValid) ? null : (){}
       );
   }
 

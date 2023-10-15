@@ -10,7 +10,7 @@ class PasswordTextFieldWidget extends StatelessWidget {
   final IconButton iconButton;
   final String? errorText;
   final Function(String) onChanged;
-  final TextEditingController controller;
+  final TextEditingController? controller;
 
 
   const PasswordTextFieldWidget(
@@ -23,7 +23,7 @@ class PasswordTextFieldWidget extends StatelessWidget {
       required this.iconButton,
       this.errorText,
       required this.onChanged,
-      required this.controller
+      this.controller
       });
 
   @override
