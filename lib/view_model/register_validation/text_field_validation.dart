@@ -47,6 +47,7 @@ class RegisterTextFieldValidation with ChangeNotifier{
         ConfPassTextFieldWidget.enabled = true;
       } else {
         _password = TextFieldModel(null, "Password must contains an upper case letter");
+        ConfPassTextFieldWidget.enabled = false;
       }
     } else {
         _password = TextFieldModel(null, "Password must be at least 8 characters");
